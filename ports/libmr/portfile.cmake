@@ -1,0 +1,20 @@
+include(vcpkg_common_functions)
+
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO Vastlab/libMR
+    REF f828da25999660ae47014dff6e000b85ba205376
+    SHA512 994f85936b92e088d2f2f342cb5198a36b4dddefa6e9e023731869dca69e0de1488cc79afe8bf4a7081c4045ea2fad0c2ffc637aa8e08f473de8ab1c44286347
+    HEAD_REF master
+)
+
+vcpkg_configure_cmake(
+    SOURCE_PATH ${SOURCE_PATH}
+    PREFER_NINJA
+)
+
+file(COPY ${SOURCE_PATH}/LICENSE.TXT DESTINATION ${CURRENT_PACKAGES_DIR}/share/libMR)
+file(RENAME ${CURRENT_PACKAGES_DIR}/share/libMR/LICENSE.TXT ${CURRENT_PACKAGES_DIR}/share/libMR/copyright)
+
+file(GLOB HEADER_FILES ${SOURCE_PATH}/libMR/*.h)
+file(COPY ${HEADER_FILES} DESTINATION ${CURRENT_PACKAGES_DIR}/include/libMR)
